@@ -1,0 +1,30 @@
+# Python environment and caches
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.ipynb_checkpoints/
+notebooks/__marimo__/
+
+# Operating-system files
+.DS_Store
+
+# Local data and generated artifacts
+data/
+reports/figures/
+output/
+
+# Local credentials and configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Distribution artifacts
+build/
+dist/
+*.egg-info/
+
