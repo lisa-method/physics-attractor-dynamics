@@ -1,0 +1,28 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  fast-checks:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@20cfd1bf945f4377ade1205e4dbc17946fc9a30d # v10.0.1
+        with:
+          version: "0.11.29"
+          python-version: "3.12"
+          enable-cache: true
+      - name: Install locked project environment
+        run: uv sync --locked --dev
+      - name: Check notebook source and publication hygiene
+        run: uv run --no-sync python scripts/check_notebook.py
+      - name: Test causal feature construction on synthetic inputs
+        run: uv run --no-sync python -m unittest discover -s tests -v
